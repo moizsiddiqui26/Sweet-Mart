@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logoContent">
+            <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+            <h1 class="logoName">Sweet Mart </h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="home.html">home</a>
+        </nav>
+    </div>
+    </header>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            padding-top: 5%;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #cart-items {
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .cart-item span {
+            font-size: 14px;
+        }
+        #total-price {
+            text-align: center;
+            margin: 20px auto;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #checkout-btn {
+            display: block;
+            margin: 20px auto;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        #checkout-btn:hover {
+            background-color: #45a049;
+        }
+        #checkout-section {
+            display: none;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        #checkout-section input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #checkout-section button {
+            background-color: #6d6f70;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            border-radius: 5px;
+        }
+        #checkout-section button:hover {
+            background-color: #6d6f70;
+        }
+        #order-confirmation {
+            display: none;
+            text-align: center;
+            font-size: 20px;
+            color: green;
+            margin-top: 20px;
+        }
+        #payment-section {
+            display: none;
+            margin-top: 20px;
+            margin-left: 45%;
+        }
+        #payment-section label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        #payment-summary {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <div id="cart-items"></div>
+
+    <div id="total-price">Total: ₹0</div>
+    <button id="checkout-btn">Checkout</button>
+
+    <!-- Checkout Form -->
+    <div id="checkout-section">
+        <form action="save_address.php" method="POST">
+        <h2>Delivery Address</h2>
+        <input type="text" id="pincode" name="pincode" placeholder="Pincode" required>
+        <input type="text" id="street" name="street" placeholder="Street" required>
+        <input type="text" id="area" name="area" placeholder="Area" required>
+        <input type="text" id="city" name="city" placeholder="City" required>
+        
+        <button id="next-btn">Next: Payment</button>
+        </form>
+    </div>
+
+    <!-- Address Summary Section -->
+    <div id="payment-summary" style="display: none;">
+        <h2>Address Summary</h2>
+        <p><strong>Pincode:</strong> <span id="summary-pincode"></span></p>
+        <p><strong>Street:</strong> <span id="summary-street"></span></p>
+        <p><strong>Area:</strong> <span id="summary-area"></span></p>
+        <p><strong>City:</strong> <span id="summary-city"></span></p>
+    </div>
+
+    <!-- Payment Section -->
+    <div id="payment-section" style="display: none;">
+        <h2>Select Payment Method</h2>
+        <label>
+            <input type="radio" name="payment" value="credit-card" id="credit-card"> Credit Card
+        </label>
+        <label>
+            <input type="radio" name="payment" value="cash-on-delivery" id="cash-on-delivery"> Cash on Delivery
+        </label>
+        <button id="confirm-payment-btn">Confirm Payment</button>
+    </div>
+
+    <!-- Order Confirmation -->
+    <div id="order-confirmation">Order Confirmed! Thank you for your purchase.</div>
+
+    <script>
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalPriceContainer = document.getElementById('total-price');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutSection = document.getElementById('checkout-section');
+        const paymentSection = document.getElementById('payment-section');
+        const orderConfirmation = document.getElementById('order-confirmation');
+        const nextBtn = document.getElementById('next-btn');
+        const confirmPaymentBtn = document.getElementById('confirm-payment-btn');
+        const paymentSummary = document.getElementById('payment-summary');
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function calculateTotalPrice() {
+            return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+        }
+
+        function updateCartDisplay() {
+            cartItemsContainer.innerHTML = '';
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+                checkoutBtn.style.display = 'none'; // Hide checkout button if cart is empty
+                totalPriceContainer.style.display = 'none';
+                return;
+            }
+
+            totalPriceContainer.style.display = 'block';
+            checkoutBtn.style.display = 'block';
+
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+
+                cartItem.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>₹${item.price}</span>
+                    <span>Qty: 
+                        <button onclick="decreaseQuantity(${index})">-</button>
+                        ${item.quantity}
+                        <button onclick="increaseQuantity(${index})">+</button>
+                    </span>
+                    <button onclick="removeItem(${index})">Remove</button>
+                `;
+
+                cartItemsContainer.appendChild(cartItem);
+            });
+
+            totalPriceContainer.textContent = `Total: ₹${calculateTotalPrice()}`;
+        }
+
+        function increaseQuantity(index) {
+            cart[index].quantity += 1;
+            saveCart();
+            updateCartDisplay();
+        }
+
+        function decreaseQuantity(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity -= 1;
+                saveCart();
+                updateCartDisplay();
+            }
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCartDisplay();
+        }
+
+        // Display the checkout section on clicking "Checkout"
+        checkoutBtn.addEventListener('click', () => {
+            checkoutSection.style.display = 'block';
+            checkoutBtn.style.display = 'none'; // Hide checkout button
+        });
+
+        // Show Address Summary and Payment section after address form
+        nextBtn.addEventListener('click', () => {
+            const pincode = document.getElementById('pincode').value;
+            const street = document.getElementById('street').value;
+            const area = document.getElementById('area').value;
+            const city = document.getElementById('city').value;
+
+            if (!pincode || !street || !area || !city) {
+                alert('Please fill in all address fields.');
+                return;
+            }
+
+            // Display the address summary
+            document.getElementById('summary-pincode').textContent = pincode;
+            document.getElementById('summary-street').textContent = street;
+            document.getElementById('summary-area').textContent = area;
+            document.getElementById('summary-city').textContent = city;
+
+            checkoutSection.style.display = 'none'; // Hide checkout section
+            paymentSummary.style.display = 'block'; // Show address summary
+            paymentSection.style.display = 'block'; // Show payment section
+        });
+
+        // Handle payment confirmation
+        confirmPaymentBtn.addEventListener('click', () => {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked');
+
+            if (!paymentMethod) {
+                alert('Please select a payment method.');
+                return;
+            }
+
+            const paymentMethodSelected = paymentMethod.value;
+            alert(`Order Confirmed!\nPayment Method: ${paymentMethodSelected}`);
+
+            localStorage.removeItem('cart'); // Clear the cart
+            paymentSection.style.display = 'none'; // Hide payment section
+            orderConfirmation.style.display = 'block'; // Show order confirmation message
+            updateCartDisplay(); // Update cart display to show empty cart
+        });
+
+        updateCartDisplay();
+    </script>
+</body>
+</html>

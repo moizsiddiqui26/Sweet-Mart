@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Mart</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="styles.css"></head>
+<body>
+    <header class="header">
+        <div class="logoContent">
+            <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+            <h1 class="logoName">Sweet Mart </h1>
+        </div>
+
+        <nav class="navbar">
+            <a href="home.html">home</a>
+            <a href="#product">product</a>
+            <a href="sweet.html">Sweet</a>
+            <a href="login_signup.php">Login</a>
+            <a href="#contact">contact</a>
+        </nav>
+
+        <div class="icon">
+            <i class="fas fa-search" id="search"></i>
+            <a href="cart.html"><i class="fas fa-shopping-cart" id="cart-icon" onclick="goToCartPage()"></i></a>
+            <i id="cart-count"></i>
+        </div>
+
+        <div class="search">
+            <input type="search" placeholder="search...">
+        </div>
+    </header>
+<main>
+  <h1 style="padding-top: 5%;">Types of Namkeen:-</h1>
+<div id="product">
+<div class="product-list">   
+<div class="card">
+  <img src="image/samosa.webp" alt="" style="width:100%">
+  <h1> Samosa</h1>
+  <h4>pack of 2 piece .</h4>
+  <p class="price">49</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/kachori.jpg" alt="" style="width:100%">
+  <h1>Kachori</h1>
+  <h4>pack of 2 piece .</h4>
+  <p class="price">39</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/chakli.jfif" alt="" style="width:100%">
+  <h1> Chakli</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">49</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/bhakadwadi.jfif" alt="" style="width:100%">
+  <h1> bhakadwadi</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">199</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/namakpara.webp" alt="" style="width:100%">
+  <h1>Namakpara</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">199</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/moongdal.webp" alt="" style="width:100%">
+  <h1>Moongdal</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">150</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/bananachips.jfif" alt="" style="width:100%">
+  <h1>Banana Chips</h1>
+  <h4>pack of 50gm.</h4>
+  <p class="price">200</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/poha chiwda.webp" alt="" style="width:100%">
+  <h1> Poha Chiwda</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">49</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/gathiya.jpeg" alt="" style="width:100%">
+  <h1>gathiya</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">39</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/dal moth.jpeg" alt="" style="width:100%">
+  <h1> Dal Moth</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">49</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/khatta meetha.jpeg" alt="" style="width:100%">
+  <h1> Khatta Meetha</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">199</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/fafda.jpeg" alt="" style="width:100%">
+  <h1>Fafda</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">199</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/namkeen.jpg" alt="" style="width:100%">
+  <h1>Namkeen</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">150</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/chudwa.jpg" alt="" style="width:100%">
+  <h1>Chudwa</h1>
+  <h4>pack of 50gm.</h4>
+  <p class="price">200</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+<div class="card">
+  <img src="image/mix chudwa.jpg" alt="" style="width:100%">
+  <h1>Mix Chudwa</h1>
+  <h4>pack of 250gm.</h4>
+  <p class="price">149</p>
+  <p><button class="add-to-cart-btn">Add to Cart</button></p>
+</div>
+</div>
+</div>
+<script src="script.js"></script>
+<footer class="footer" id="contact">
+  <div class="box-container">
+      <div class="mainBox">
+          
+          <p>Sweet Mart brings you a delightful collection of traditional sweets, premium chocolates, and fresh Namkeen with love and quality. Satisfy your requirement and add a touch of sweetness to every moment!</p>
+
+      </div>
+      <div class="box">
+          <h3>Quick link</h3>
+          <a href="home.html"> <i class="fas fa-arrow-right"></i>Home</a>
+          <a href="#"> <i class="fas fa-arrow-right"></i>product</a>
+          <a href="#"> <i class="fas fa-arrow-right"></i>contact</a>
+
+      </div>
+      <div class="box">
+          <h3>Extra link</h3>
+          <a href="#"> <i class="fas fa-arrow-right"></i>Account info</a>
+          <a href="#product"> <i class="fas fa-arrow-right"></i>order item</a>
+          <a href="#"> <i class="fas fa-arrow-right"></i>our  services</a>
+      </div>
+      <div class="box">
+          <h3>Contact Info</h3>
+          <a href=""> <i class="fas fa-phone"></i>+91 12345 67890</a>
+          <a href="https://mail.google.com"> <i class="fas fa-envelope"></i>sweetmart@gmail.com</a>
+
+      </div>
+
+  </div>
+  <div class="share">
+      <a href="https://www.facebook.com/" class="fab fa-facebook-f"></a>
+      <a href="https://www.x.com" class="fab fa-twitter"></a>
+      <a href="https://www.instagram.com" class="fab fa-instagram"></a>
+      <a href="https://in.pinterest.com/" class="fab fa-pinterest"></a>
+  </div>
+</footer>
+  <script src="script.js"></script>
+</body>
+</html>
